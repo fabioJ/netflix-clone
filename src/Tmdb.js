@@ -1,6 +1,8 @@
 const API_KEY = "484452d1d2702190dbb19f3c30a0e9e5";
 const API_BASE = "https://api.themoviedb.org/3";
 
+//https://api.themoviedb.org/3/movie/top_rated?language=pt-BR&api_key=484452d1d2702190dbb19f3c30a0e9e5
+
 /*
 - Originais netflix
 - Recomendados (trending)
@@ -18,50 +20,52 @@ const basicFetch = async (endpoint) => {
     return json;
 }
 
-export default {
+const TMDBList = {
     getHomeList: async () => {
         return [
             {
                 slug: "originals",
                 title: "Originais da Netflix",
-                items: basicFetch(`/discover/tv?with_network=213&language=pt-BR&api_key=${API_KEY}`)
+                items: basicFetch(`/discover/tv?with_network=213&language=pt-BR&api_key=${API_KEY}`),
             },
             {
                 slug: "trending",
                 title: "Recomendados para Você",
-                items: []
+                items: basicFetch(`/trending/all/week?language=pt-BR&api_key=${API_KEY}`),
             },
             {
                 slug: "toprated",
                 title: "Em Alta",
-                items: []
+                items: basicFetch(`/movie/top_rated?language=pt-BR&api_key=${API_KEY}`),
             },
             {
                 slug: "action",
                 title: "Ação",
-                items: []
+                items: basicFetch(`/discover/movie?language=pt-BR&with_genres=28&api_key=${API_KEY}`),
             },
             {
                 slug: "comedy",
                 title: "Comédia",
-                items: []
+                items: basicFetch(`/discover/movie?language=pt-BR&with_genres=35&api_key=${API_KEY}`),
             },
             {
                 slug: "horror",
                 title: "Terror",
-                items: []
+                items: basicFetch(`/discover/movie?language=pt-BR&with_genres=27&api_key=${API_KEY}`)
             },
             {
                 slug: "romance",
                 title: "Romance",
-                items: []
+                items: basicFetch(`/discover/movie?language=pt-BR&with_genres=10749&api_key=${API_KEY}`)
             },
             {
                 slug: "documentary",
                 title: "Documentário",
-                items: []
+                items: basicFetch(`/discover/movie?language=pt-BR&with_genres=99&api_key=${API_KEY}`)
             }
         ]
     }
 
 }
+
+export default TMDBList;
